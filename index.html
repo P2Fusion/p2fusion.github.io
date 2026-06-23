@@ -130,19 +130,27 @@
               </h1>
 
               <div class="is-size-5 publication-authors">
-                <span class="author-block">Yi Shi<sup>1</sup>,</span>
-                <span class="author-block">Huichao Xie<sup>1</sup>,</span>
+                <span class="author-block">Yi Shi<sup>1,*</sup>,</span>
+                <span class="author-block">Huichao Xie<sup>1,*</sup>,</span>
                 <span class="author-block">Yuqing Wang<sup>1</sup>,</span>
-                <span class="author-block">Kai Zheng<sup>1</sup>,</span>
-                <span class="author-block">Teng Yang<sup>1</sup>,</span>
+                <span class="author-block">Mingyu Wang<sup>1</sup>,</span>
+                <span class="author-block">Kaihui Yang<sup>1</sup>,</span>
                 <span class="author-block">Yu Liu<sup>2</sup>,</span>
-                <span class="author-block">Junwei Han<sup>1</sup>,</span>
+                <span class="author-block">Ruitao Lu<sup>3</sup>,</span>
+                <span class="author-block">Lizhe Li<sup>1</sup>,</span>
+                <span class="author-block">Junwei Han<sup>1,4</sup>,</span>
                 <span class="author-block">Dingwen Zhang<sup>1</sup></span>
               </div>
 
               <div class="is-size-5 publication-authors">
-                <span class="author-block"><sup>1</sup>Northwestern Polytechnical University, <br>
-                  <sup>2</sup>Hefei University of Technology</span>
+                <span class="author-block">
+                  <sup>*</sup>These authors contributed equally.
+                  <br>
+                  <sup>1</sup>Northwestern Polytechnical University, <br>
+                  <sup>2</sup>Hefei University of Technology, <br>
+                  <sup>3</sup>Rocket Force University of Engineering, <br>
+                  <sup>4</sup>Chongqing University of Posts and Telecommunications,
+                </span>
               </div>
 
               <div class="column has-text-centered">
@@ -200,13 +208,17 @@
       <div class="container is-max-desktop">
         <div class="hero-body">
           <figure class="teaser-illustration">
-            <img src="static/images/main.svg" alt="P2Fusion Teaser" style="width: 100%; height: auto;">
+            <img src="static/images/main.png" alt="P2Fusion Teaser" style="width: 100%; height: auto;">
           </figure>
           <figcaption class="has-text-justified has-text-grey">
-            Compared with existing IVIF methods, P²Fusion uses two complementary priors to provide dynamic prompt-based
-            guidance during optimization, alleviating gradient conflicts, achieving better performance on various
-            fusion, segmentation, and detection metrics on MSRS, and producing clearer textures, more stable modality
-            balance, and more consistent downstream results.
+            <b>Motivation and Performance Overview</b>. (a) Prior integration paradigm (Left): Existing methods inject
+            priors as static constraints, often causing optimization conflicts. Our P<sup>2</sup>Fusion provides
+            dynamic,
+            prompt-based guidance via image-intrinsic priors to mitigate gradient interference. (b) Fusion quality
+            (Middle):
+            Radar charts across four datasets (MSRS, M3FD, FMB, RoadScene) demonstrate our superior visual fidelity. (c)
+            Downstream perception (Right): P<sup>2</sup>Fusion consistently enhances object detection and semantic
+            segmentation performance on FMB and M3FD benchmarks.
           </figcaption>
         </div>
       </div>
@@ -221,24 +233,22 @@
         </div>
         <div class="content has-text-justified">
           <p>
-            Infrared-visible image fusion (IVIF) aims to generate a single image that preserves complementary
-            information from both modalities, serving as a critical component in multimodal perception. Although
-            prior-guided fusion methods have achieved notable progress, existing approaches commonly inject priors as
-            static constraints or penalty terms, limiting generalization and inducing multi-task optimization conflicts.
-            To address these limitations, we propose P<sup>2</sup>Fusion, a prompt-based fusion framework that
-            integrates dual complementary priors—a thermal-saliency prior to capture infrared target semantics and a
-            spatial-quality-distribution prior to encode visible reliability—via distillation-based learnable prompts.
-            Unlike conventional hard-coded priors, both priors are distilled from dedicated teachers (infrared-saliency
-            and visible-quality) into dynamic prompts that condition the fusion process procedurally rather than as
-            fixed penalties, enabling context-adaptive modulation and improved generalization. Crucially, we introduce a
-            perceptual-adaptation mechanism that explicitly prescribes how these dual priors are loaded, weighted, and
-            coordinated throughout the fusion pipeline, thereby preventing prior dominance and avoiding multi-task
-            conflicts. Guided by this dual-prior framework, we design a Dual-Granularity Progressive Fusion (DGPF)
-            module that refines features from coarse, prior-aligned aggregation to fine-grained, prior-conditioned
-            fusion. Extensive experiments across diverse benchmarks validate P<sup>2</sup>Fusion’s superiority. On MSRS,
-            it achieves SOTA on five of seven fusion metrics. For downstream tasks, P²Fusion further improves over the
-            fusion baselines by +3.6% mAP on object detection and +0.401% mIoU on semantic segmentation, demonstrating
-            its superior fusion quality and strong utility for subsequent perception tasks.
+            Infrared-visible image fusion (IVIF) is pivotal for multimodal perception, yet reconciling the inherent
+            information disparity between thermal and textual features remains a fundamental challenge. Existing
+            prior-guided methods often rely on static constraints that induce optimization conflicts or utilize
+            extrinsic semantic priors from large-scale foundation models (e.g., CLIP/DINO), which frequently fail to
+            exploit the intrinsic modality characteristics essential for high-fidelity fusion. To address these
+            issues, we propose P<sup>2</sup>Fusion, a prior-guided distillation-based framework that reformulates IVIF
+            via dual intrinsic prompts. Instead of imposing hard-coded penalties, we distill image-intrinsic priors,
+            thermal saliency and spatial quality into learnable, dynamic regulators. Specifically, a Teach-to-Fuse
+            mechanism provides dual-granularity progressive guidance, coupled with a Gated Dynamic Expert Recalibration
+            (GDER) module for decoupled feature refinement. This design enables the network to adaptively mediate modal
+            competition through expert specialization. Extensive experiments demonstrate that P<sup>2</sup>Fusion
+            achieves state-of-the-art performance across five mainstream datasets. Notably, our framework demonstrates
+            consistent performance advantages in fusion quality, achieving state-of-the-art results in 14 out of 20 key
+            evaluation metrics across 5 benchmarks. Furthermore, it effectively contributes to the robustness of
+            downstream perception, such as +3.2% mAP on MSRS, +0.5% mAP on M3FD and +0.9% mAP on DroneVehicle for object
+            detection.
           </p>
         </div>
       </div>
@@ -253,11 +263,13 @@
           <h2 class="title is-3">Overview</h2>
         </div>
         <figure>
-          <img src="static/images/net.svg" alt="Overview of the P2Fusion framework" style="width: 100%; height: auto;">
+          <img src="static/images/net.png" alt="Overview of the P2Fusion framework" style="width: 100%; height: auto;">
           <figcaption class="has-text-justified has-text-grey">
-            The overall framework of our proposed P<sup>2</sup>Fusion. The core network comprises dual-teacher
-            distillation and a DGPF module. Dual priors are embedded into DGPF as prompts to guide dynamic, adaptive
-            iterative updates of fused features. Specific architectural details are in the inset subfigures.
+            <b>Illustration of the proposed framework</b>. (a) Overall pipeline: prior-guided visible and infrared
+            features are fused via cross-attention, where the proposed GDER module adaptively refines modality-specific
+            and interaction features for reconstruction. (b) Spatial Quality Distillation: a quality assessor provides
+            patch-level quality guidance to supervise spatial-detail learning. (c) Thermal Saliency Distillation: a
+            saliency teacher offers thermal saliency priors to enhance target-aware fusion.
           </figcaption>
         </figure>
       </div>
@@ -272,7 +284,13 @@
           <h2 class="title is-3">Main Results</h2>
         </div>
         <figure>
-          <img src="static/images/res.png" alt="Main results of P2Fusion" style="width: 100%; height: auto;">
+          <img src="static/images/res1.png" alt="Main results of P2Fusion" style="width: 100%; height: auto;">
+        </figure>
+        <figure>
+          <img src="static/images/res2.png" alt="Main results of P2Fusion" style="width: 100%; height: auto;">
+        </figure>
+        <figure>
+          <img src="static/images/res3.png" alt="Main results of P2Fusion" style="width: 100%; height: auto;">
         </figure>
       </div>
     </section>
