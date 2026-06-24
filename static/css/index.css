@@ -19,7 +19,7 @@
   --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   --gradient-subtle: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
   --border-radius: 12px;
-  --border-radius-lg: 0px;
+  --border-radius-lg: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -136,19 +136,19 @@ body {
 }
 
 .theme-bg-1 {
-  background: var(--background-secondary);
+  background: var(--background-primary);
 }
 
 .theme-bg-2 {
-  background: #fdf7f0;
+  background: var(--background-secondary);
 }
 
 .theme-bg-3 {
-  background: #eef2ff;
+  background: var(--background-primary);
 }
 
 .theme-bg-4 {
-  background: #f4f7fb;
+  background: var(--background-secondary);
 }
 
 .visualization-subsection {
@@ -172,6 +172,7 @@ body {
   box-shadow: var(--shadow-md);
   overflow: hidden;
   background: #fff;
+  border-radius: var(--border-radius-lg);
 }
 
 .visualization-section figcaption {
@@ -187,6 +188,14 @@ body {
   font-size: 1.125rem;
 }
 
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
 
 /* Publication Content Styling */
 .publication-title {
@@ -433,12 +442,64 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.7);
   cursor: grab;
   z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: handle-pulse 2.5s infinite ease-in-out;
+}
+
+/* When the slider is hovered, make all handles more prominent but keep their dark background */
+.fusion-slider:hover .fusion-handle,
+.fusion-slider:focus-within .fusion-handle {
+  opacity: 0.85;
+}
+
+/* Only light up the specific handle being hovered */
+.fusion-handle:hover,
+.fusion-slider:hover .fusion-handle:hover,
+.fusion-handle:focus,
+.fusion-slider:focus-within .fusion-handle:focus {
+  opacity: 1;
+  background: var(--primary-color);
+  border-color: #fff;
+  animation: none;
+  box-shadow: 0 0 12px var(--primary-color), var(--shadow-lg);
 }
 
 .fusion-handle:active {
   cursor: grabbing;
+}
+
+.fusion-handle-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1.5px;
+  height: 1000px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 15%,
+    rgba(255, 255, 255, 0.4) 85%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes handle-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5), var(--shadow-lg);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0), var(--shadow-lg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), var(--shadow-lg);
+  }
 }
 
 .fusion-handle::before,
@@ -1251,6 +1312,20 @@ a:focus {
   border-color: var(--primary-hover);
 }
 
+#model-viewer {
+  width: 100%;
+  height: 600px;
+  background-color: var(--background-secondary);
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 30px 30px;
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  margin-top: 1rem;
+}
+
 /* Print styles */
 @media print {
   .more-works-container {
@@ -1270,8 +1345,4 @@ a:focus {
   .model-switch-container {
     display: none;
   }
-}
-.fusion-slider:hover .fusion-handle,
-.fusion-slider:focus-within .fusion-handle {
-  opacity: 1;
 }

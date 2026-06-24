@@ -235,9 +235,9 @@ function createFusionColumn(pair) {
                 <img src="${pair.ir}" alt="${pair.folder} IR" class="fusion-layer" data-layer="ir" draggable="false">
                 <img src="${pair.sage}" alt="${pair.folder} Sage" class="fusion-layer" data-layer="sage" draggable="false">
                 <img src="${pair.ours}" alt="${pair.folder} Ours" class="fusion-layer" data-layer="ours" draggable="false">
-                <div class="fusion-handle" data-handle="first" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" aria-label="Adjust RGB/IR divider" tabindex="0"></div>
-                <div class="fusion-handle" data-handle="second" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Adjust IR/Sage divider" tabindex="0"></div>
-                <div class="fusion-handle" data-handle="third" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" aria-label="Adjust Sage/Ours divider" tabindex="0"></div>
+                <div class="fusion-handle" data-handle="first" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" aria-label="Adjust RGB/IR divider" tabindex="0"><div class="fusion-handle-line"></div></div>
+                <div class="fusion-handle" data-handle="second" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Adjust IR/Sage divider" tabindex="0"><div class="fusion-handle-line"></div></div>
+                <div class="fusion-handle" data-handle="third" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" aria-label="Adjust Sage/Ours divider" tabindex="0"><div class="fusion-handle-line"></div></div>
                 <span class="fusion-segment-label fusion-segment-label--rgb">RGB</span>
                 <span class="fusion-segment-label fusion-segment-label--ir">IR</span>
                 <span class="fusion-segment-label fusion-segment-label--sage">Sage</span>
